@@ -24,7 +24,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+pad(Vec2{300,50},60,15)
 {
 }
 
@@ -38,8 +39,18 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+		float y = pad.get_pos().x;
+	if(wnd.kbd.KeyIsPressed(VK_UP))
+	{
+		
+		y-= 1;
+	}else if(wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		 y+= 1;
+	}
 }
 
 void Game::ComposeFrame()
 {
+	pad.draw(gfx, Colors::Gray);
 }
