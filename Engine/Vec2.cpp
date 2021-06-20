@@ -62,3 +62,13 @@ Vec2 Vec2::GetNormalized() const
 	}
 	return *this;
 }
+
+bool Vec2::operator>=(int i) const
+{
+	return Vec2() >= i;
+}
+
+bool Vec2::operator>(float i) const
+{
+	return  x > i && y > i;
+}

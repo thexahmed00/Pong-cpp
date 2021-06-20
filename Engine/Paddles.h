@@ -1,6 +1,7 @@
 #pragma once
 #include "Vec2.h"
 #include "Graphics.h"
+#include "Keyboard.h"
 
 class Paddles
 {
@@ -18,4 +19,6 @@ public:
 
 	void draw(Graphics& gfx,Color c) const;
 	Vec2 get_pos();
+	void move(const Keyboard& kbd);
+	
 };
