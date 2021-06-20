@@ -26,7 +26,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	pad(Vec2(300, 40), 60, 15),
-	b(Vec2(400, 300), Vec2(300.0f, 300.0f)),
+	pad2(Vec2(300,700),60,15),
+	b(Vec2(400, 300), Vec2(-300.0f, -300.0f)),
 	walls(0, Graphics::ScreenWidth, 0, gfx.ScreenHeight)
 {
 }
@@ -44,14 +45,17 @@ void Game::UpdateModel()
 	float dt = ft.Mark();
 	
 	pad.move(wnd.kbd);
+	pad2.move(wnd.kbd);
+	b.Move(dt,walls,pad);
 	
-	b.Move(dt,walls);
+
 	
 }
 
 void Game::ComposeFrame()
 {
 	pad.draw(gfx, Colors::Gray);
+	pad2.draw(gfx, Colors::Gray);
 	b.draw(gfx);
 }
 

@@ -44,7 +44,7 @@ private:
 private:
 	MainWindow& wnd;
 	Graphics gfx;
-	Paddles pad;
+	Paddles pad,pad2;
 	FrameTimer ft;
 	ball b;
 	Rect walls;

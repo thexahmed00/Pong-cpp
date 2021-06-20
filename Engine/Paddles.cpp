@@ -5,19 +5,26 @@
 #include  "Keyboard.h"
 void Paddles::draw( Graphics& gfx,Color c) const
 {
-	 for (float i=pos.y;i<height+pos.y;i++)
-	 {
+	 
 	 	for (float j = pos.x; j < width+pos.x; j++)
 	 	{
-	 		gfx.PutPixel(i,j,c);
+			for (float i = pos.y; i < height + pos.y; i++)
+			{
+				gfx.PutPixel(i, j, c);
+			}
 	 	}
-	 }
+	 
 	
 }
 
-Vec2 Paddles::get_pos()
+Vec2 Paddles::get_pos() const
 {
 	return  pos;
+}
+
+int Paddles::get_height() const
+{
+	return height;
 }
 
 void Paddles::move(const Keyboard& kbd)
@@ -43,5 +50,6 @@ void Paddles::move(const Keyboard& kbd)
 		}
 	}
 }
+
 
 
