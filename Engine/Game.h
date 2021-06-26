@@ -38,6 +38,7 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
+	void pad_moves(Keyboard& kbd);
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -48,6 +49,7 @@ private:
 	FrameTimer ft;
 	ball b;
 	Rect walls;
+	int speed = 5;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

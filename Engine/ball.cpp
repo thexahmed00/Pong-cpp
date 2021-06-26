@@ -6,26 +6,26 @@ void ball::draw(Graphics& gfx) const
 	SpriteCodex::DrawBall(pos, gfx);
 }
 
-void ball::Move(float dt,Rect& wall,Paddles& pad)
+void ball::Move(float dt,Rect& wall)
 {
 	pos += vel * dt;
-	if(pos.y >wall.height1-12)
+	if(pos.y+14 >=wall.height1)
 	{
 		rebound_y();
 		
 	}
 
-	if ( pos.y <wall.height0+12)
+	if ( pos.y-14 <=wall.height0)
 	{
 		rebound_y();
 		//vel.x = -vel.x;
 	}
-	if (pos.x<wall.width0+10 )
+	if (pos.x-14<=wall.width0 )
 	{
 		ReboundX();
 		//vel.x = -vel.x;
 	}
-	if (pos.x > wall.width1-12)
+	if (pos.x+14 >= wall.width1)
 	{
 		ReboundX();
 		//vel.x = -vel.x;
@@ -48,6 +48,8 @@ void ball::rebound_y()
 {
 	vel.y = -vel.y;
 }
+
+
 
 
 

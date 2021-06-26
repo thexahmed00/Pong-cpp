@@ -6,18 +6,18 @@
 void Paddles::draw( Graphics& gfx,Color c) const
 {
 	 
-	 	for (float j = pos.x; j < width+pos.x; j++)
-	 	{
-			for (float i = pos.y; i < height + pos.y; i++)
-			{
-				gfx.PutPixel(i, j, c);
-			}
-	 	}
-	 
+	for (int i = pos.x; i < pos.x+width; i++)
+	{
+		for (int j = pos.y; j < pos.y + height; j++)
+		{
+			gfx.PutPixel(i, j, Colors::Cyan);
+		}
+	}
+
 	
 }
 
-Vec2 Paddles::get_pos() const
+Vec2 Paddles::get_pos() 
 {
 	return  pos;
 }
@@ -27,29 +27,34 @@ int Paddles::get_height() const
 	return height;
 }
 
-void Paddles::move(const Keyboard& kbd)
+int Paddles::get_width() const
 {
-	constexpr  float wall_down=540;
-	constexpr  float wall_up = 0;
-
-	if(kbd.KeyIsPressed(VK_UP))
-	{
-		pos.x-= 5;
-		if (pos.x <= wall_up) {
-
-			pos.x = wall_up;
-		}
-		
-	}
-	if(kbd.KeyIsPressed(VK_DOWN))
-	{
-		pos.x+=5;
-		if (pos.x >=wall_down) {
-			
-			pos.x = wall_down;
-		}
-	}
+	return width;
 }
+
+
+
+bool Paddles::isCollide(ball& b) 
+{
+	if (b.get_pos().x < pos.x + width &&
+		b.get_pos().x > pos.x &&
+		b.get_pos().y < pos.y + height &&
+		b.get_pos().y > pos.y)
+	{
+		isCollideBall = true;
+	}
+	else
+	{
+		isCollideBall = false;
+	}
+	return isCollideBall;
+}
+
+float Paddles::Getcenter()
+{
+	return  (width + height) / 2;
+}
+
 
 
 

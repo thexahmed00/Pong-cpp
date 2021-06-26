@@ -1,6 +1,5 @@
 #pragma once
 #include "Graphics.h"
-#include "Paddles.h"
 #include "Rect.h"
 #include "Vec2.h"
 
@@ -16,15 +15,20 @@ public:
 		
 	}
 	void draw(Graphics& gfx) const;
-	void Move(float dt,Rect& wall,Paddles& pad);
+	void Move(float dt,Rect& wall);
 	Vec2 get_pos() const;
 	void ReboundX();
 	void rebound_y();
-//	bool isCollide(Paddles& pad);
+	
 private :
 	Vec2 pos;
 	Vec2 vel;
 	
 	Color c;
-	
+public :
+	const float left = pos.x - 7;
+	const float right = pos.x + 7;
+	const float  up= pos.y - 7;
+	const float down = pos.y + 7;
+
 };

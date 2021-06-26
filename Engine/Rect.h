@@ -20,7 +20,7 @@ public:
 	const int  width1;
 	const int height0;
 	const int height1;
-	
+	Rect get_center();
 
 	
 	

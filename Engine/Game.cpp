@@ -25,8 +25,8 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	pad(Vec2(300, 40), 60, 15),
-	pad2(Vec2(300,700),60,15),
+	pad(Vec2(40,300 ), 15, 60),
+	pad2(Vec2(760,300),15,60),
 	b(Vec2(400, 300), Vec2(-300.0f, -300.0f)),
 	walls(0, Graphics::ScreenWidth, 0, gfx.ScreenHeight)
 {
@@ -42,19 +42,74 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	float dt = ft.Mark();
-	
-	pad.move(wnd.kbd);
-	pad2.move(wnd.kbd);
-	b.Move(dt,walls,pad);
-	
+	const float dt = ft.Mark();
+	pad_moves(wnd.kbd);
+	b.Move(dt,walls);
+	if (b.get_pos().x < pad.get_pos().x + pad.get_width() &&
+		b.get_pos().x >  pad.get_pos().x &&
+		b.get_pos().y <  pad.get_pos().y + pad.get_height() &&
+		b.get_pos().y >  pad.get_pos().y)
+	{
+		b.ReboundX();
+	}
 
+	if (b.get_pos().x > pad2.get_pos().x  &&
+		b.get_pos().x <  pad2.get_pos().x + pad2.get_width() &&
+		b.get_pos().y >  pad2.get_pos().y   &&
+		b.get_pos().y <  pad2.get_pos().y + pad2.get_height())
+	{
+		b.ReboundX();
+	}
 	
 }
+
+void Game::pad_moves(Keyboard& kbd)
+{
+	constexpr  float wall_down = 540;
+	constexpr  float wall_up = 0;
+
+	if (kbd.KeyIsPressed(VK_UP))
+	{
+		pad.pos.y-= speed;
+		if (pad.get_pos().y <= wall_up) {
+
+			pad.pos.y = wall_up;
+		}
+
+	}
+	if (kbd.KeyIsPressed(VK_DOWN))
+	{
+		pad.pos.y += 5;
+		if (pad.get_pos().y >= wall_down) {
+
+			pad.pos.y = wall_down;
+		}
+	}
+	//right pad
+	if (kbd.KeyIsPressed('W'))
+	{
+		pad2.pos.y -= speed;
+		if (pad2.get_pos().y <= wall_up) {
+
+			pad2.pos.y = wall_up;
+		}
+
+	}
+	if (kbd.KeyIsPressed('S'))
+	{
+		pad2.pos.y += 5;
+		if (pad2.get_pos().y >= wall_down) {
+
+			pad2.pos.y = wall_down;
+		}
+	}
+}
+
 
 void Game::ComposeFrame()
 {
 	pad.draw(gfx, Colors::Gray);
+	
 	pad2.draw(gfx, Colors::Gray);
 	b.draw(gfx);
 }
