@@ -19,11 +19,11 @@ public:
 	Vec2 get_pos() const;
 	void ReboundX();
 	void rebound_y();
-	
+	bool getWallcollide();
 private :
 	Vec2 pos;
 	Vec2 vel;
-	
+	bool iswallcollide = false;
 	Color c;
 public :
 	const float left = pos.x - 7;

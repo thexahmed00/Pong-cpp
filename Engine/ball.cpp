@@ -23,11 +23,13 @@ void ball::Move(float dt,Rect& wall)
 	if (pos.x-14<=wall.width0 )
 	{
 		ReboundX();
+		iswallcollide = true;
 		//vel.x = -vel.x;
 	}
 	if (pos.x+14 >= wall.width1)
 	{
 		ReboundX();
+		iswallcollide = true;
 		//vel.x = -vel.x;
 	}
 	
@@ -47,6 +49,11 @@ void ball::ReboundX()
 void ball::rebound_y()
 {
 	vel.y = -vel.y;
+}
+
+bool ball::getWallcollide()
+{
+	return iswallcollide;
 }
 
 

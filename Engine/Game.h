@@ -50,6 +50,7 @@ private:
 	ball b;
 	Rect walls;
 	int speed = 5;
+	bool GameOver = false;
 	/********************************/
 	/*  User Variables              */
 	/********************************/

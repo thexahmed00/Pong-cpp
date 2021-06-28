@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include  "SpriteCodex.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -42,25 +43,26 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	const float dt = ft.Mark();
-	pad_moves(wnd.kbd);
-	b.Move(dt,walls);
-	if (b.get_pos().x < pad.get_pos().x + pad.get_width() &&
-		b.get_pos().x >  pad.get_pos().x &&
-		b.get_pos().y <  pad.get_pos().y + pad.get_height() &&
-		b.get_pos().y >  pad.get_pos().y)
-	{
-		b.ReboundX();
-	}
+	if (!GameOver) {
+		const float dt = ft.Mark();
+		pad_moves(wnd.kbd);
+		b.Move(dt, walls);
+		if (b.get_pos().x < pad.get_pos().x + pad.get_width() &&
+			b.get_pos().x >  pad.get_pos().x &&
+			b.get_pos().y <  pad.get_pos().y + pad.get_height() &&
+			b.get_pos().y >  pad.get_pos().y)
+		{
+			b.ReboundX();
+		}
 
-	if (b.get_pos().x > pad2.get_pos().x  &&
-		b.get_pos().x <  pad2.get_pos().x + pad2.get_width() &&
-		b.get_pos().y >  pad2.get_pos().y   &&
-		b.get_pos().y <  pad2.get_pos().y + pad2.get_height())
-	{
-		b.ReboundX();
+		if (b.get_pos().x > pad2.get_pos().x &&
+			b.get_pos().x <  pad2.get_pos().x + pad2.get_width() &&
+			b.get_pos().y >  pad2.get_pos().y &&
+			b.get_pos().y < pad2.get_pos().y + pad2.get_height())
+		{
+			b.ReboundX();
+		}
 	}
-	
 }
 
 void Game::pad_moves(Keyboard& kbd)
@@ -103,14 +105,23 @@ void Game::pad_moves(Keyboard& kbd)
 			pad2.pos.y = wall_down;
 		}
 	}
+	if(b.getWallcollide())
+	{
+		GameOver = true;
+		
+	}
 }
 
 
 void Game::ComposeFrame()
 {
+	if(!GameOver)
+	{
+		
 	pad.draw(gfx, Colors::Gray);
 	
 	pad2.draw(gfx, Colors::Gray);
 	b.draw(gfx);
+	}
 }
 
